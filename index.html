@@ -3,29 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/style.css" />
     <title>bitcoin</title>
   </head>
   <body>
     <div id="app">
-      <h2>TODO List</h2>
-      <!-- 画面遷移を防ぐため -->
-      <form v-on:submit.prevent>
-        <input type="text" v-model="newItem">
-        <button v-on:click="addItem">
-          add
-        </button>
-      </form>
+      <h2>Bitcoin Price</h2>
       <ul>
-        <li v-for="(todo, index) in todos">
-          <input type="checkbox" v-model="todo.isDone">
-          <span v-bind:class="{ done: todo.isDone }">{{ todo.item }}</span>
-          <button v-on:click="deleteItem(index)">Delete</button>
+        <li v-for="(rate, currency) in bpi">
+          {{ currency }} : {{ rate.rate_float }}
         </li>
       </ul>
-      <pre>{{ $data }}</pre>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <!--
+      axiosとは？
+      ブラウザやnode.js上で動くPromiseベースのHTTPクライアント
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
     <script src="./script/script.js"></script>
   </body>
 </html>
