@@ -3,16 +3,28 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>bitcoin</title>
   </head>
   <body>
     <div id="app">
       <h2>Bitcoin Price</h2>
-      <ul>
-        <li v-for="(rate, currency) in bpi">
-          {{ currency }} : {{ rate.rate_float }}
-        </li>
-      </ul>
+      <section v-if="hasError">
+        Error
+      </section>
+      <section v-else>
+        <div v-if="loading">
+          Loading...
+        </div>
+        <div v-else>
+          <!-- マスタッシュ構文のチラつき防止 -->
+          <ul v-cloak>
+            <li v-for="(rate, currency) in bpi">
+              {{ currency }} : {{ rate.rate_float | currencyDemical }}
+            </li>
+          </ul>
+        </div>
+      </section>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <!--
