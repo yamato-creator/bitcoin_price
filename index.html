@@ -8,24 +8,30 @@
   </head>
   <body>
     <div id="app">
-      <h2>TODO List</h2>
-      <!-- 画面遷移を防ぐため -->
-      <form v-on:submit.prevent>
-        <input type="text" v-model="newItem">
-        <button v-on:click="addItem">
-          add
-        </button>
-      </form>
-      <ul>
-        <li v-for="(todo, index) in todos">
-          <input type="checkbox" v-model="todo.isDone">
-          <span v-bind:class="{ done: todo.isDone }">{{ todo.item }}</span>
-          <button v-on:click="deleteItem(index)">Delete</button>
-        </li>
-      </ul>
-      <pre>{{ $data }}</pre>
+      <h2>Bitcoin Price</h2>
+      <section v-if="hasError">
+        Error
+      </section>
+      <section v-else>
+        <div v-if="loading">
+          Loading...
+        </div>
+        <div v-else>
+          <!-- マスタッシュ構文のチラつき防止 -->
+          <ul v-cloak>
+            <li v-for="(rate, currency) in bpi">
+              {{ currency }} : {{ rate.rate_float | currencyDemical }}
+            </li>
+          </ul>
+        </div>
+      </section>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <!--
+      axiosとは？
+      ブラウザやnode.js上で動くPromiseベースのHTTPクライアント
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
     <script src="./script/script.js"></script>
   </body>
 </html>
